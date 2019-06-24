@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.friendtimes.user.dao.ModuleMapper">
+
+
+    <select id="getDedicatedModuleByUserName"
+            parameterType="java.lang.String"
+            resultType="com.friendtimes.domain.user.ext.Module">
+
+		select
+		module_id,
+		module_name,
+		icon,
+		detail,
+		url,
+		colour
+		from
+		module_details
+		where module_id in
+		(select
+		module_id
+		from
+		user_module
+		where
+		user_name = #{user_name}
+		) order by sort asc;
+	</select>
+
+
+    <select id="getModulesByUserName"
+            parameterType="java.lang.String"
+            resultType="com.friendtimes.domain.user.ext.Module">
+
+		select
+		module_id,
+		module_name,
+		icon,
+		detail,
+		url,
+		colour
+		from
+		module_details
+		where status = '1'
+		order by sort asc;
+	</select>
+
+	<insert id="addModuleByIds" parameterType="java.util.List">
+		insert into user_module(user_name,module_id)
+		values <foreach collection="ids" item="id"  separator=",">
+		(#{id.user_name},#{id.module_id})
+	</foreach>
+	</insert>
+
+	<delete id="deleteModuleByIds">
+		delete * from user_module where user_name = #{username}
+		and module_id in
+		<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>
