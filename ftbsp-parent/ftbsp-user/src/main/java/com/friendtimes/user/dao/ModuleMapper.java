@@ -1,7 +1,7 @@
 package com.friendtimes.user.dao;
 
 import com.friendtimes.domain.user.ext.Module;
-import com.friendtimes.user.PoJo.UserModule;
+import com.friendtimes.user.common.UserModule;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

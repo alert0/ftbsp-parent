@@ -4,13 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.friendtimes.common.exception.CustomException;
 import com.friendtimes.common.model.response.CommonCode;
 import com.friendtimes.domain.user.ext.*;
-import com.friendtimes.user.PoJo.UserModule;
+import com.friendtimes.user.common.UserModule;
 import com.friendtimes.user.dao.ModuleMapper;
 import com.friendtimes.utils.HttpClientHelper;
 import com.friendtimes.utils.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import com.friendtimes.user.dao.CompanyUserRepository;
 import com.friendtimes.user.dao.MenuMapper;
@@ -27,7 +29,17 @@ import java.util.*;
  **/
 @Service
 @Slf4j
+@PropertySource(value = {"classpath:application.properties"})
 public class UserService {
+
+    @Value("${data.url}")
+    private String url;
+
+    @Value("${data.secretId}")
+    private String secretId;
+
+    @Value("${data.secretKey}")
+    private String secretKey;
 
     @Autowired
     UserRepository userRepository;
@@ -112,13 +124,13 @@ public class UserService {
         String res = "";
         String status = "";
         //员工信息查询接口
-        String url = "http://192.168.10.132/zentao/api-v1.html";
+//        String url = "http://192.168.10.132/zentao/api-v1.html";
         //账号信息
         String account = username;
         String action = "getUser";
         String timestamp = "" + System.currentTimeMillis() / 1000;
-        String secretId = "309031BE8B5111E9B7DD005056A0202F";
-        String secretKey = "MzA5MDMxRUI4QjUxMTFFOUI3REQwMDUwNTZBMDIwMkY=";
+        /*String secretId = "309031BE8B5111E9B7DD005056A0202F";
+        String secretKey = "MzA5MDMxRUI4QjUxMTFFOUI3REQwMDUwNTZBMDIwMkY=";*/
         String sign = MD5Util.getStringMD5("account=" + username + "&action=" + action + "&secretId=" + secretId + "&timestamp=" + timestamp + secretKey);
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("action", action);

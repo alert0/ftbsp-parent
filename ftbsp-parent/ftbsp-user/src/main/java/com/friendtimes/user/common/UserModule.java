@@ -1,4 +1,4 @@
-package com.friendtimes.user.PoJo;
+package com.friendtimes.user.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

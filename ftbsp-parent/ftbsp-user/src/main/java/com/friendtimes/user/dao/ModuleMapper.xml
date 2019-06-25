@@ -52,7 +52,7 @@
 	</insert>
 
 	<delete id="deleteModuleByIds">
-		delete * from user_module where user_name = #{username}
+		delete from user_module where user_name = #{username}
 		and module_id in
 		<foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
 			#{id}

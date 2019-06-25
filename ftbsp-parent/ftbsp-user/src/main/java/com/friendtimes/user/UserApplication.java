@@ -17,7 +17,8 @@ import org.springframework.web.client.RestTemplate;
 @EntityScan("com.friendtimes.domain.user.ext") // 扫描实体类
 @ComponentScan(basePackages = { "com.friendtimes.api" }) // 扫描接口
 @ComponentScan(basePackages = { "com.friendtimes.common" }) // 扫描common下的所有类
-@ComponentScan(basePackages = { "net.bojoy" }) // 扫描common下的所有类
+@ComponentScan(basePackages = { "net.bojoy" }) // 扫描net.bojoy下的所有类
+@ComponentScan(basePackages = { "com.friendtimes.user.common" }) // 扫描common下的所有类
 @SpringBootApplication
 public class UserApplication {
 
